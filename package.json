@@ -1,0 +1,27 @@
+{
+  "name": "express-static-router",
+  "version": "0.0.2",
+  "description": "Middleware facilitates to implement static router inside your express app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohammad0-0ahmad/express-static-router.git"
+  },
+  "keywords": [
+    "express",
+    "static",
+    "router"
+  ],
+  "author": "Mohammad Ahmad",
+  "license": "MIT",
+  "peerDependencies": {
+    "express": "^4.17.1"
+  },
+  "bugs": {
+    "url": "https://github.com/mohammad0-0ahmad/express-static-router/issues"
+  },
+  "homepage": "https://github.com/mohammad0-0ahmad/express-static-router#readme"
+}
