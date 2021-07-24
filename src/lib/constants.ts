@@ -1,10 +1,10 @@
 /**
  *
  */
-exports.ROUTE_FILE_EXTENSION = /(.js|.ts)$/;
+export const ROUTE_FILE_EXTENSION = /(.js|.ts)$/;
 
 /**
  *
  */
-exports.HTTP_REQUEST_METHOD =
+export const HTTP_REQUEST_METHOD =
   /^(get|head|post|put|delete|connect|options|trace|patch)$/;
