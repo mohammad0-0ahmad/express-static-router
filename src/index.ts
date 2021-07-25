@@ -38,4 +38,4 @@ const staticRouter = (routerFolder: string, app): void => {
   }
 };
 
-export default staticRouter;
+export = staticRouter;

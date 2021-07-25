@@ -1,4 +1,4 @@
-import { name as packageName } from "../../../package.json";
+const packageName = "express-static-router";
 
 /**
  *
