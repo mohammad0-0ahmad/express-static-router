@@ -1,7 +1,7 @@
 /**
  *
  */
-export const ROUTE_FILE_EXTENSION = /(.js|.ts)$/;
+export const ROUTE_FILE_EXTENSION = /\..*$/;
 
 /**
  *

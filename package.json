@@ -1,6 +1,6 @@
 {
   "name": "express-static-router",
-  "version": "0.8.5",
+  "version": "0.9.0",
   "description": "Middleware facilitates to implement static router inside your express app.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

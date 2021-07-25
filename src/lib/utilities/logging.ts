@@ -15,7 +15,9 @@ export const consoleWarn = (...args: any): void => {
  * @param args
  */
 export const consoleErr = (...args: any) => {
+  consoleLogHeader();
   console.log(fgRed, "Error!!\n", ...args, reset);
+  consoleLogFooter();
 };
 
 /**
