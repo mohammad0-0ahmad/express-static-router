@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
-import { ROUTE_FILE_EXTENSION } from "../constants";
-import { HandlerType } from "./handler";
+import { ROUTE_FILE_EXTENSION } from "../constants.js";
+import { HandlerType } from "./handler.js";
 
 /**
  *

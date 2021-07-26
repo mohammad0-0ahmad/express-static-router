@@ -1,7 +1,7 @@
-import { MiddlewareType } from "./middleware";
-import { RouteModuleType } from "./route";
-import { consoleWarn } from "./logging";
-import { HTTP_REQUEST_METHOD } from "../constants";
+import { MiddlewareType } from "./middleware.js";
+import { RouteModuleType } from "./route.js";
+import { consoleWarn } from "./logging.js";
+import { HTTP_REQUEST_METHOD } from "../constants.js";
 
 /**
  *

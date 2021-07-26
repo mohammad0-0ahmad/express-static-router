@@ -1,6 +1,6 @@
 {
   "name": "express-static-router",
-  "version": "0.9.0",
+  "version": "0.9.8",
   "description": "Middleware facilitates to implement static router inside your express app.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -8,7 +8,9 @@
     "lib/**/*"
   ],
   "scripts": {
-    "build": "tsc -p ."
+    "build": "tsc -p tsconfig-mjs.json && tsc -p tsconfig-cjs.json",
+    "dev-cjs": "tsc --watch -p tsconfig-cjs.json",
+    "dev-mjs": "tsc --watch -p tsconfig-mjs.json"
   },
   "repository": {
     "type": "git",
@@ -31,5 +33,11 @@
   "devDependencies": {
     "@types/node": "^16.4.1",
     "typescript": "^4.3.5"
+  },
+  "exports": {
+    ".": {
+      "import": "./lib/mjs/index.js",
+      "require": "./lib/cjs/index.js"
+    }
   }
 }

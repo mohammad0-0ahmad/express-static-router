@@ -1,4 +1,4 @@
-const packageName = "express-static-router";
+import { PACKAGE_NAME } from "../constants.js";
 
 /**
  *
@@ -31,7 +31,7 @@ const consoleLogHeader = (): void => {
     bgBrightGreen,
     spaces,
     fgBlack,
-    packageName,
+    PACKAGE_NAME,
     fgBrightGreen,
     spaces,
     reset
@@ -47,7 +47,7 @@ const consoleLogFooter = (): void => {
   console.log(
     fgBlack,
     bgBrightGreen,
-    "/".repeat(45 + packageName.length),
+    "/".repeat(45 + PACKAGE_NAME.length),
     reset
   );
 };
