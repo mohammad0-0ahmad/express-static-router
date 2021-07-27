@@ -1,17 +1,7 @@
 {
   "name": "express-static-router",
-  "version": "0.9.8",
-  "description": "Middleware facilitates to implement static router inside your express app.",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "files": [
-    "lib/**/*"
-  ],
-  "scripts": {
-    "build": "tsc -p tsconfig-mjs.json && tsc -p tsconfig-cjs.json",
-    "dev-cjs": "tsc --watch -p tsconfig-cjs.json",
-    "dev-mjs": "tsc --watch -p tsconfig-mjs.json"
-  },
+  "version": "0.9.9",
+  "description": "Middleware makes it easy to implement static routers in your express app.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mohammad0-0ahmad/express-static-router.git"
@@ -23,21 +13,32 @@
   ],
   "author": "Mohammad Ahmad",
   "license": "MIT",
-  "peerDependencies": {
-    "express": "^4.17.1"
-  },
   "bugs": {
     "url": "https://github.com/mohammad0-0ahmad/express-static-router/issues"
   },
   "homepage": "https://github.com/mohammad0-0ahmad/express-static-router#readme",
+  "scripts": {
+    "build": "npm run build:cjs && npm run build:mjs",
+    "build:cjs": "tsc -p tsconfig-cjs.json && npm run cjs:package",
+    "cjs:package": "echo {\"type\":\"commonjs\"} > dist/cjs/package.json",
+    "build:mjs": "tsc -p tsconfig-mjs.json && npm run mjs:package",
+    "mjs:package": "echo {\"type\":\"module\"} > dist/mjs/package.json",
+    "dev-cjs": "tsc --watch -p tsconfig-cjs.json",
+    "dev-mjs": "tsc --watch -p tsconfig-mjs.json"
+  },
+  "peerDependencies": {
+    "express": "^4.17.1"
+  },
   "devDependencies": {
     "@types/node": "^16.4.1",
     "typescript": "^4.3.5"
   },
+  "main": "dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
   "exports": {
     ".": {
-      "import": "./lib/mjs/index.js",
-      "require": "./lib/cjs/index.js"
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/mjs/index.js"
     }
   }
 }

@@ -6,7 +6,12 @@ export const PACKAGE_NAME = "express-static-router";
 /**
  *
  */
-export const ROUTE_FILE_EXTENSION = /\..*$/;
+export const ROUTE_FILE_EXTENSION = /\.[0-9a-z]+$/;
+
+/**
+ *
+ */
+export const WILD_ROUTE = /\[\.\.\.\]$/;
 
 /**
  *

@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { ROUTE_FILE_EXTENSION } from "../constants.js";
 import { HandlerType } from "./handler.js";
+import { consoleErr } from "./logging.js";
 
 /**
  *
@@ -41,16 +42,23 @@ export const routePathToRoute = (
   path: string,
   paramsPattern: string
 ): string => {
-  return [
-    path
-      .replace(ROUTE_FILE_EXTENSION, "")
-      .replace(/\\index$/, "")
-      .replace(/\\/g, "/")
-      .replace(/\[\.\.\.\]$/, "*"),
-    paramsPattern || "",
-  ]
-    .join("")
-    .replace(/^$/, "/");
+  try {
+    return [
+      path
+        .replace(ROUTE_FILE_EXTENSION, "")
+        .replace(/\\index$/, "")
+        .replace(/\\/g, "/")
+        .replace(/\[\.\.\.\]$/, "*"),
+      paramsPattern || "",
+    ]
+      .join("")
+      .replace(/^$/, "/");
+  } catch (error) {
+    consoleErr(
+      "Something went wrong while parsing route file name or paramsPattern."
+    );
+    return null;
+  }
 };
 
 /* -------------------------------------------------------------------------- */

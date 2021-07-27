@@ -20,38 +20,41 @@ const staticRouter = (routerFolder: string, app): void => {
       `Router folder couldn't be found in the following location:\n ${routerPath} `
     );
   } else {
-    const routes = getAllRoutesPaths(routerPath, "/");
-    routes.forEach(async (route) => {
+    getAllRoutesPaths(routerPath, "/").forEach(async (routePath) => {
       let routeModule;
       try {
-        routeModule = await import(path.join(routerPath, route));
+        routeModule = await import(path.join(routerPath, routePath));
       } catch (error) {
         try {
           routeModule = await import(
-            `../../../../${path.join(routerFolder, route)}`
+            `../../../../${path.join(routerFolder, routePath)}`
           );
         } catch (error) {
           consoleErr(
             `Something went wrong while loading the following route:\n ${path.join(
               routerFolder,
-              route
+              routePath
             )}\n Please double check the mentioned route.`
           );
         }
       }
       routeModule &&
-        getHandlersEntries(routeModule, route).forEach(
+        getHandlersEntries(routeModule, routePath).forEach(
           ([method, handler]: HandlerEntryType) => {
             const handlerToCall =
               typeof handler === "object" ? handler?.handler : handler;
-            app[method](
-              routePathToRoute(
-                route,
-                typeof handler === "object" && handler?.paramsPattern
-              ),
-              getMiddleware(typeof handler === "object" && handler?.middleware),
-              (req, res) => handlerToCall(req, res)
+            const route = routePathToRoute(
+              routePath,
+              typeof handler === "object" && handler?.paramsPattern
             );
+            route &&
+              app[method](
+                route,
+                getMiddleware(
+                  typeof handler === "object" && handler?.middleware
+                ),
+                (req, res) => handlerToCall(req, res)
+              );
           }
         );
     });
