@@ -18,3 +18,17 @@ export const WILD_ROUTE = /\[\.\.\.\]$/;
  */
 export const HTTP_REQUEST_METHOD =
   /^(get|head|post|put|delete|connect|options|trace|patch)$/;
+
+/**
+ *
+ */
+export const defaultOptions = {
+  printDetectedRoutes: true,
+};
+
+/**
+ *
+ */
+export type OptionsType = {
+  printDetectedRoutes?: boolean;
+};

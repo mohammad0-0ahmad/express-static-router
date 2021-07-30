@@ -1,7 +1,8 @@
 import { MiddlewareType } from "./middleware.js";
-import { RouteModuleType } from "./route.js";
+import { RouteModuleType, BasicRouteModuleType } from "./route.js";
 import { consoleWarn } from "./logging.js";
 import { HTTP_REQUEST_METHOD } from "../constants.js";
+import { Request, Response } from "express";
 
 /**
  *
@@ -13,7 +14,15 @@ export const getHandlersEntries = (
   module: RouteModuleType,
   route: string
 ): Array<HandlerEntryType> => {
-  const handlersEntries = Object.entries(module).filter(
+  const moduleWithoutDefault = Object.fromEntries(
+    Object.entries(module).filter(([key, value]) => key !== "default")
+  );
+  const defaultObj = { ...(module?.default?.default || module?.default) };
+  const activeModule: BasicRouteModuleType = {
+    ...moduleWithoutDefault,
+    ...defaultObj,
+  };
+  const handlersEntries = Object.entries(activeModule).filter(
     ([exportedVariableName, exportedVariableValue]) => {
       if (exportedVariableName.match(HTTP_REQUEST_METHOD)) {
         if (
@@ -40,7 +49,7 @@ export const getHandlersEntries = (
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
 
-export type BasicHandlerType = (request, response) => void;
+export type BasicHandlerType = (request: Request, response: Response) => void;
 
 export type CompoundHandlerType = {
   paramsPattern?: string;

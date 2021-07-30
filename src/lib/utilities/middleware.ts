@@ -1,3 +1,5 @@
+import { Request, NextFunction, Response } from "express";
+
 /**
  *
  * @param middleware
@@ -17,4 +19,8 @@ export const getMiddleware = (
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
 
-export type MiddlewareType = (request, response, next) => void;
+export type MiddlewareType = (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => void;

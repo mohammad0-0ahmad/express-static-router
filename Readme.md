@@ -20,18 +20,22 @@ Express Static Router is a middleware that makes it easy to implement static rou
 ### Usage
 
 **1- Specify router folder and passing express app instance Inside your server file:**
-```
-Note! Router folder is a folder that store all js file that will represent all routes.
-```
+
+`Note! Router folder is a folder that store all js file that will represent all routes.`
+
 ```javascript
 import express from "express";
 import staticRouter from "express-static-router";
+const app = express();
 .
 .
 .
 .
 .
 staticRouter("./yourRouterFolder", app);
+
+// OR to disable printing of detected routes.
+staticRouter("./yourRouterFolder", app, { printDetectedRoutes :false });
 ```
 
 **2- Create a route:**
@@ -40,16 +44,16 @@ Inside the provided router directory create js files named depending on route "e
 
 Here are some examples that describe how to create a route:
 
-* Example 1:
- To specify the home endpoint "/" you have to create index.js route file inside router directory.
-<br/>
+- Example 1:
+  To specify the home endpoint "/" you have to create index.js route file inside router directory.
+  <br/>
 
-* Example 2:
-Specifying the following route "/user" can be done by either by creating user.js route file inside router directory OR by creating index.js inside user folder that is created directly inside the provided router folder.
-<br/>
+- Example 2:
+  Specifying the following route "/user" can be done by either by creating user.js route file inside router directory `OR` by creating index.js inside user folder that is created directly inside the provided router folder.
+  <br/>
 
-* Example 3:
-To define a route that can match all routes which starts with "/books/" create /books/[...].js. this will be equivalent to app.method("/books/\*") when using express router.
+- Example 3:
+  To define a route that can match all routes which starts with "/books/" create /books/[...].js. this will be equivalent to app.method("/books/\*") when using express router.
 
 **3- Define requests handlers:**
 After creating route file you have to export your requests handlers depending on request method.
@@ -103,7 +107,7 @@ export default {
 
 **Handler type:**
 
-Exported handler can be either a function or an object that receive the following properties:
+Exported handler can be either a function `OR` an object that receive the following properties:
 
 | Property      | Description                                                        |
 | ------------- | ------------------------------------------------------------------ |
@@ -147,17 +151,10 @@ export default {
 
 When visiting `/john/doe` will respond the following response:
 
-```
-{
-  "firstName": "john",
-  "lastName": "doe"
-}
-```
+`{ "firstName": "john", "lastName": "doe" }`
 
 but when visiting `/doe/john` will return:
 
-```
-Sorry you aren't John
-```
+`Sorry you aren't John`
 
 ---

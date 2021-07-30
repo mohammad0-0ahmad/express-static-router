@@ -65,8 +65,13 @@ export const routePathToRoute = (
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
 
-export type RouteModuleType = {
-  [key in HttpRequestMethod | string]: HandlerType;
+export interface RouteModuleType extends BasicRouteModuleType {
+  [key: string]: HandlerType | RouteModuleType;
+  default?: RouteModuleType;
+}
+
+export type BasicRouteModuleType = {
+  [key in HttpRequestMethod]: HandlerType;
 };
 
 export type HttpRequestMethod =
