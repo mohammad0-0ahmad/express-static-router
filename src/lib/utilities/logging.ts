@@ -62,7 +62,7 @@ export const consoleDetectedRoutes = (detectedRoutes: object) => {
   consoleLogHeader();
   console.log(fgCyan, underLine, "Detected routes:", reset);
   Object.entries(detectedRoutes).map(([route, methods]) => {
-    console.log(`\n`);
+    console.log(fgTransparent, ` `, reset);
     console.log(fgBrightGreen, route, reset);
     let methodsLine = [];
     methods.forEach((method) => {

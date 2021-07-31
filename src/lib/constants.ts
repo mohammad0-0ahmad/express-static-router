@@ -31,4 +31,10 @@ export const defaultOptions = {
  */
 export type OptionsType = {
   printDetectedRoutes?: boolean;
+  onLoad?: CallbackFunction;
 };
+
+/**
+ *
+ */
+type CallbackFunction = () => void;

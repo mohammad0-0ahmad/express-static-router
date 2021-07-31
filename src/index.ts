@@ -1,9 +1,11 @@
-import { Application as ExpressApplication } from "express";
+import { Application as ExpressApplication } from "express-serve-static-core";
 import fs from "fs";
 import path from "path";
 import {
   getHandlersEntries,
   HandlerEntryType,
+  RequestType,
+  ResponseType,
 } from "./lib/utilities/handler.js";
 import { consoleDetectedRoutes, consoleErr } from "./lib/utilities/logging.js";
 import { getMiddleware } from "./lib/utilities/middleware.js";
@@ -14,6 +16,7 @@ import { defaultOptions, OptionsType } from "./lib/constants.js";
  *
  * @param routerFolder
  * @param app
+ * @param options
  */
 const staticRouter: StaticRouterType = (routerFolder, app, options) => {
   options = { ...defaultOptions, ...options };
@@ -25,7 +28,7 @@ const staticRouter: StaticRouterType = (routerFolder, app, options) => {
   } else {
     const detectedRoutes = {};
     const routesPaths = getAllRoutesPaths(routerPath, "/");
-    routesPaths.forEach(async (routePath, routesPathIndex) => {
+    routesPaths.forEach(async (routePath, routePathIndex) => {
       let routeModule;
       try {
         routeModule = await import(path.join(routerPath, routePath));
@@ -58,7 +61,7 @@ const staticRouter: StaticRouterType = (routerFolder, app, options) => {
                 getMiddleware(
                   typeof handler === "object" && handler?.middleware
                 ),
-                (req, res) => handlerToCall(req, res)
+                (req: RequestType, res: ResponseType) => handlerToCall(req, res)
               );
             /* -------------------------------------------------------------------------- */
             /*                           Prepare detectedRoutes                           */
@@ -77,19 +80,26 @@ const staticRouter: StaticRouterType = (routerFolder, app, options) => {
       /* -------------------------------------------------------------------------- */
       if (
         options.printDetectedRoutes &&
-        routesPaths.length - 1 === routesPathIndex
+        routesPaths.length - 1 === routePathIndex &&
+        Object.keys(detectedRoutes).length
       ) {
         consoleDetectedRoutes(detectedRoutes);
       }
+      /* -------------------------------------------------------------------------- */
+      /*                            Call onLoad callback                            */
+      /* -------------------------------------------------------------------------- */
+      if (options.onLoad && routesPaths.length - 1 === routePathIndex) {
+        options.onLoad();
+      }
     });
+    /* -------------------------------------------------------------------------- */
+    /*                            Call onLoad callback                            */
+    /* -------------------------------------------------------------------------- */
+    if (!routesPaths.length && options.onLoad) {
+      options.onLoad();
+    }
   }
 };
-
-export type StaticRouterType = (
-  routerFolder: string,
-  app: ExpressApplication,
-  options?: OptionsType
-) => void;
 
 export default staticRouter;
 (() => {
@@ -97,3 +107,15 @@ export default staticRouter;
     module.exports = staticRouter;
   } catch (err) {}
 })();
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
+
+export type StaticRouterType = (
+  routerFolder: string,
+  app: ExpressApplication,
+  options?: OptionsType
+) => void;
+
+export { HandlerType } from "./lib/utilities/handler.js";
