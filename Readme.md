@@ -11,17 +11,17 @@ npm i express-static-router
 
 ### Description:
 
-Express Static Router is a middleware that makes it easy to implement static routers in your express app based on files structure that can be found inside a a specified router folder.
+Express Static Router is a middleware that makes it easy to implement static router in your express app based on a specified router folder's files structure.
 
 ---
 
 <br/>
 
-### Usage
+### Usage:
 
-**1- Specify router folder and passing express app instance Inside your server file:**
+**1- Specify router folder and passing express app instance Inside your server file "main file":**
 
-`Note! Router folder is a folder that store all js file that will represent all routes.`
+`Note! Router folder is a folder that contains all source code files that represent all routes.`
 
 ```javascript
 import express from "express";
@@ -105,7 +105,25 @@ export default {
 
 ---
 
-**Handler type:**
+### Types:
+
+**staticRouter parameters**
+
+| Column A     | Column B                        |
+| ------------ | ------------------------------- |
+| routerFolder | Router folder relative path.    |
+| app          | Express application instance.   |
+| options      | An object to pass some options. |
+
+**options type:**
+An object can be used to pass optional options which affect middleware behavior:
+
+| Property            | Description                                                                                                                           |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| printDetectedRoutes | Boolean value that determines whether or not to print detected routes in the console.                                                 |
+| onLoad              | A callback function that executes after loading all routes files <br/> This is helpful to apply some logic after defining all routes. |
+
+**handler type:**
 
 Exported handler can be either a function `OR` an object that receive the following properties:
 
@@ -117,8 +135,8 @@ Exported handler can be either a function `OR` an object that receive the follow
 
 ---
 
-**More examples:**
-
+###More examples:
+**1- Middleware checks a parameter value**
 Let's guess that we have inside router folder the following index.js route file:
 
 ```javascript
@@ -156,5 +174,26 @@ When visiting `/john/doe` will respond the following response:
 but when visiting `/doe/john` will return:
 
 `Sorry you aren't John`
+
+**2- Define not-found endpoint handler.**
+Because of this middleware loads routes files asynchronously you need to pass similar logic inside onLoad property instead of having the logic underneath staticRouter implementation.
+
+```javascript
+import express from "express";
+import staticRouter from "express-static-router";
+const app = express();
+.
+.
+.
+.
+.
+staticRouter("./router", app, {
+  onLoad: () => {
+    app.use((req, res) => {
+      res.status(404).send();
+    });
+  },
+});
+```
 
 ---

@@ -1,8 +1,9 @@
+import QueryString from "qs";
+import { Request, Response } from "express-serve-static-core";
 import { MiddlewareType } from "./middleware.js";
 import { RouteModuleType, BasicRouteModuleType } from "./route.js";
 import { consoleWarn } from "./logging.js";
 import { HTTP_REQUEST_METHOD } from "../constants.js";
-import { Request, Response } from "express";
 
 /**
  *
@@ -49,7 +50,10 @@ export const getHandlersEntries = (
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
 
-export type BasicHandlerType = (request: Request, response: Response) => void;
+export type BasicHandlerType = (
+  request: RequestType,
+  response: ResponseType
+) => void;
 
 export type CompoundHandlerType = {
   paramsPattern?: string;
@@ -60,3 +64,13 @@ export type CompoundHandlerType = {
 export type HandlerType = CompoundHandlerType | BasicHandlerType;
 
 export type HandlerEntryType = [keyof RouteModuleType, HandlerType];
+
+export type RequestType = Request<
+  {},
+  any,
+  any,
+  QueryString.ParsedQs,
+  Record<string, any>
+>;
+
+export type ResponseType = Response<any, Record<string, any>, number>;

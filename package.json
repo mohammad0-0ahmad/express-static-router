@@ -1,6 +1,6 @@
 {
   "name": "express-static-router",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Middleware makes it easy to implement static routers in your express app.",
   "repository": {
     "type": "git",

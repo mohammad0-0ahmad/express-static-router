@@ -1,4 +1,5 @@
-import { Request, NextFunction, Response } from "express";
+import { NextFunction } from "express";
+import { RequestType, ResponseType } from "./handler.js";
 
 /**
  *
@@ -20,7 +21,7 @@ export const getMiddleware = (
 /* -------------------------------------------------------------------------- */
 
 export type MiddlewareType = (
-  request: Request,
-  response: Response,
+  request: RequestType,
+  response: ResponseType,
   next: NextFunction
 ) => void;
