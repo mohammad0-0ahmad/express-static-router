@@ -31,20 +31,28 @@ const staticRouter: StaticRouterType = (routerFolder, app, options) => {
     const routesPaths = getAllRoutesPaths(routerPath, "/");
     routesPaths.forEach(async (routePath, routePathIndex) => {
       let routeModule;
+      let errorDetails = "";
       try {
         routeModule = await import(path.join(routerPath, routePath));
       } catch (error) {
+        if (error.toString()?.includes("SyntaxError")) {
+          errorDetails = error;
+        }
         try {
           routeModule = await import(
             "file:///" + path.join(routerPath, routePath)
           );
         } catch (error) {
+          if (error.toString()?.includes("SyntaxError")) {
+            errorDetails = error;
+          }
           consoleErr(
             `Something went wrong while loading the following route:\n ${path.join(
               routerFolder,
               routePath
             )}\n Please double check the mentioned route.`
           );
+          errorDetails && console.log(errorDetails);
         }
       }
       routeModule &&
