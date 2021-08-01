@@ -55,6 +55,20 @@ Here are some examples that describe how to create a route:
 - Example 3:
   To define a route that can match all routes which starts with "/books/" create /books/[...].js. this will be equivalent to app.method("/books/\*") when using express router.
 
+Router folder structure tree illustrating the three previous examples:
+
+```
+router
+│
+├────── index.js
+│
+├────── user
+│          └── index.js
+│
+└───── books
+           └── [...].js
+```
+
 **3- Define requests handlers:**
 
 After creating route file you have to export your requests handlers depending on request method.
@@ -110,11 +124,11 @@ export default {
 
 **staticRouter parameters**
 
-| Column A     | Column B                              |
-| ------------ | ------------------------------------- |
+| Column A     | Column B                               |
+| ------------ | -------------------------------------- |
 | routerFolder | Relative path points to router folder. |
-| app          | Express application instance.         |
-| options      | An object to pass some options.       |
+| app          | Express application instance.          |
+| options      | An object to pass some options.        |
 
 **options type:**
 
