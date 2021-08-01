@@ -11,6 +11,7 @@ import { consoleDetectedRoutes, consoleErr } from "./lib/utilities/logging.js";
 import { getMiddleware } from "./lib/utilities/middleware.js";
 import { getAllRoutesPaths, routePathToRoute } from "./lib/utilities/route.js";
 import { defaultOptions, OptionsType } from "./lib/constants.js";
+import { BasicRouteModuleType } from "./lib/utilities/route.js";
 
 /**
  *
@@ -63,9 +64,7 @@ const staticRouter: StaticRouterType = (routerFolder, app, options) => {
                 ),
                 (req: RequestType, res: ResponseType) => handlerToCall(req, res)
               );
-            /* -------------------------------------------------------------------------- */
-            /*                           Prepare detectedRoutes                           */
-            /* -------------------------------------------------------------------------- */
+            //Prepare detectedRoutes.
             if (options.printDetectedRoutes) {
               if (!detectedRoutes[route]) {
                 detectedRoutes[route] = [];
@@ -74,10 +73,7 @@ const staticRouter: StaticRouterType = (routerFolder, app, options) => {
             }
           }
         );
-
-      /* -------------------------------------------------------------------------- */
-      /*                            Print detectedRoutes                            */
-      /* -------------------------------------------------------------------------- */
+      //Print detectedRoutes.
       if (
         options.printDetectedRoutes &&
         routesPaths.length - 1 === routePathIndex &&
@@ -85,16 +81,12 @@ const staticRouter: StaticRouterType = (routerFolder, app, options) => {
       ) {
         consoleDetectedRoutes(detectedRoutes);
       }
-      /* -------------------------------------------------------------------------- */
-      /*                            Call onLoad callback                            */
-      /* -------------------------------------------------------------------------- */
+      // Call onLoad callback.
       if (options.onLoad && routesPaths.length - 1 === routePathIndex) {
         options.onLoad();
       }
     });
-    /* -------------------------------------------------------------------------- */
-    /*                            Call onLoad callback                            */
-    /* -------------------------------------------------------------------------- */
+    // Call onLoad callback if no routes were found.
     if (!routesPaths.length && options.onLoad) {
       options.onLoad();
     }
@@ -112,10 +104,21 @@ export default staticRouter;
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
 
+/**
+ *
+ */
 export type StaticRouterType = (
   routerFolder: string,
   app: ExpressApplication,
   options?: OptionsType
 ) => void;
 
+/**
+ *
+ */
 export { HandlerType } from "./lib/utilities/handler.js";
+
+/**
+ *
+ */
+export type RouteModuleType = BasicRouteModuleType;

@@ -56,6 +56,7 @@ Here are some examples that describe how to create a route:
   To define a route that can match all routes which starts with "/books/" create /books/[...].js. this will be equivalent to app.method("/books/\*") when using express router.
 
 **3- Define requests handlers:**
+
 After creating route file you have to export your requests handlers depending on request method.
 
 Example:
@@ -109,13 +110,14 @@ export default {
 
 **staticRouter parameters**
 
-| Column A     | Column B                        |
-| ------------ | ------------------------------- |
-| routerFolder | Router folder relative path.    |
-| app          | Express application instance.   |
-| options      | An object to pass some options. |
+| Column A     | Column B                              |
+| ------------ | ------------------------------------- |
+| routerFolder | Relative path points to router folder. |
+| app          | Express application instance.         |
+| options      | An object to pass some options.       |
 
 **options type:**
+
 An object can be used to pass optional options which affect middleware behavior:
 
 | Property            | Description                                                                                                                           |
@@ -135,8 +137,10 @@ Exported handler can be either a function `OR` an object that receive the follow
 
 ---
 
-###More examples:
+### More examples:
+
 **1- Middleware checks a parameter value**
+
 Let's guess that we have inside router folder the following index.js route file:
 
 ```javascript
@@ -176,6 +180,7 @@ but when visiting `/doe/john` will return:
 `Sorry you aren't John`
 
 **2- Define not-found endpoint handler.**
+
 Because of this middleware loads routes files asynchronously you need to pass similar logic inside onLoad property instead of having the logic underneath staticRouter implementation.
 
 ```javascript
