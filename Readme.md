@@ -11,7 +11,7 @@ npm i express-static-router
 
 ### Description:
 
-Express Static Router is a middleware that makes it easy to implement static router in your express app based on a specified router folder's files structure.
+Express Static Router is a middleware that makes it easy to implement file-system based router in your express app.
 
 ---
 
@@ -124,7 +124,7 @@ export default {
 
 **staticRouter parameters**
 
-| Column A     | Column B                               |
+| parameter    | Description                            |
 | ------------ | -------------------------------------- |
 | routerFolder | Relative path points to router folder. |
 | app          | Express application instance.          |
